@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// ===== FUNCIONALIDAD FAQ AGREGADA =====
+// ===== FUNCIONALIDAD FAQ CORREGIDA =====
 
 // Funcionalidad para preguntas frecuentes
 function initFAQ() {
@@ -125,32 +125,40 @@ function initFAQ() {
     
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
         
         question.addEventListener('click', () => {
-            // Cerrar otros items abiertos
+            const isActive = item.classList.contains('active');
+            
+            // Cerrar todos los items primero
             faqItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                }
+                otherItem.classList.remove('active');
+                const otherAnswer = otherItem.querySelector('.faq-answer');
+                otherAnswer.style.maxHeight = '0';
+                otherAnswer.style.padding = '0 30px';
             });
             
-            // Alternar el item actual
-            item.classList.toggle('active');
-            
-            // Agregar animación de escala al abrir
-            if (item.classList.contains('active')) {
-                item.style.animation = 'scaleReveal 0.3s ease';
+            // Si el item clickeado no estaba activo, abrirlo
+            if (!isActive) {
+                item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                answer.style.padding = '10px';
             }
         });
     });
     
     // Abrir primera pregunta por defecto
     if (faqItems.length > 0) {
-        faqItems[0].classList.add('active');
+        const firstItem = faqItems[0];
+        const firstAnswer = firstItem.querySelector('.faq-answer');
+        firstItem.classList.add('active');
+        firstAnswer.style.maxHeight = firstAnswer.scrollHeight + 'px';
+        firstAnswer.style.padding = '15px';
     }
 }
 
-// Efecto de escritura mejorado para FAQ
+
+// Efecto de escritura para FAQ
 function animateFAQOnScroll() {
     const faqSection = document.querySelector('.faq-section');
     const faqItems = document.querySelectorAll('.faq-item');
@@ -175,22 +183,6 @@ function animateFAQOnScroll() {
         faqObserver.observe(faqSection);
     }
 }
-
-// Llamar las funciones cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    initFAQ();
-    animateFAQOnScroll();
-    
-    // También agregar FAQ a la navegación
-    const navLinks = document.querySelector('.nav-links');
-    if (navLinks) {
-        const faqLink = document.createElement('a');
-        faqLink.href = '#faq';
-        faqLink.textContent = 'FAQ';
-        navLinks.appendChild(faqLink);
-    }
-});
-
 
 // ===== MENÚ HAMBURGUESA PARA MÓVIL =====
 
