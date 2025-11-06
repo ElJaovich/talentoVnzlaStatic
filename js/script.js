@@ -190,3 +190,64 @@ document.addEventListener('DOMContentLoaded', function() {
         navLinks.appendChild(faqLink);
     }
 });
+
+
+// ===== MENÚ HAMBURGUESA PARA MÓVIL =====
+
+function initMobileMenu() {
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const navLinks = document.getElementById('navLinks');
+    const mobileOverlay = document.createElement('div');
+    
+    // Crear overlay
+    mobileOverlay.className = 'mobile-overlay';
+    document.body.appendChild(mobileOverlay);
+    
+    // Función para abrir/cerrar menú
+    function toggleMenu() {
+        hamburgerMenu.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        mobileOverlay.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    // Event listeners
+    if (hamburgerMenu && navLinks) {
+        hamburgerMenu.addEventListener('click', toggleMenu);
+        
+        // Cerrar menú al hacer click en overlay
+        mobileOverlay.addEventListener('click', toggleMenu);
+        
+        // Cerrar menú al hacer click en un enlace
+        const navItems = navLinks.querySelectorAll('a');
+        navItems.forEach(item => {
+            item.addEventListener('click', toggleMenu);
+        });
+        
+        // Cerrar menú al redimensionar la ventana (si se vuelve a desktop)
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                hamburgerMenu.classList.remove('active');
+                navLinks.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+}
+
+// Llamar las funciones cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    initFAQ();
+    animateFAQOnScroll();
+    initMobileMenu(); // <-- Agregar esta línea
+    
+    // También agregar FAQ a la navegación (si no está ya)
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks && !navLinks.querySelector('a[href="#faq"]')) {
+        const faqLink = document.createElement('a');
+        faqLink.href = '#faq';
+        faqLink.textContent = 'FAQ';
+        navLinks.appendChild(faqLink);
+    }
+});

@@ -447,7 +447,8 @@ footer {
     }
 
     .logo-img {
-        height: 40px; /* Tamaño más pequeño para móviles */
+        height: 100px;
+        width: 100px;
     }
 
     .nav-links {
@@ -469,6 +470,7 @@ footer {
     section {
         padding: 50px 20px;
     }
+
 }
 
 /* ===== SECCIÓN FAQ AGREGADA ===== */
@@ -601,22 +603,150 @@ footer {
     opacity: 0.9;
 }
 
-/* Responsive para FAQ */
+
+
+
+/* ===== HEADER RESPONSIVE MEJORADO ===== */
+
+/* Texto del logo para desktop */
+.logo-text {
+    margin-left: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--gold);
+}
+
+/* Texto del logo para móvil (oculto por defecto) */
+.logo-text-mobile {
+    display: none;
+    margin-left: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--gold);
+}
+
+/* Menú hamburguesa (oculto por defecto) */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background: var(--gold);
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+/* Menú hamburguesa animado */
+.hamburger-menu.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* ===== RESPONSIVE DESIGN ACTUALIZADO ===== */
+
 @media (max-width: 768px) {
+    header {
+        padding: 10px 20px;
+    }
+
+    /* Logo para móvil - solo muestra "Talentos de Venezuela" */
+    .logo-text {
+        display: none;
+    }
+    
+    .logo-text-mobile {
+        display: inline;
+    }
+
+    .logo-img {
+        height: 60px;
+        width:  60px;
+    }
+
+    /* Oculta los botones de navegación por defecto */
+    .nav-links {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: var(--dark-blue);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 40px;
+        gap: 30px;
+        transition: left 0.3s ease;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 15px 0;
+        width: 80%;
+        text-align: center;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .nav-links a:last-child {
+        border-bottom: none;
+    }
+
+    /* Muestra el menú hamburguesa */
+    .hamburger-menu {
+        display: flex;
+    }
+
+    /* Ajustes para el hero en móvil */
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    .cta-button {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+
+    section {
+        padding: 40px 20px;
+    }
+
+    /* Ajustes para FAQ en móvil */
     .faq-section {
-        padding: 50px 20px;
+        padding: 40px 20px;
     }
     
     .faq-question {
-        padding: 20px;
+        padding: 15px;
     }
     
     .faq-question h3 {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     
     .faq-item.active .faq-answer {
-        padding: 20px;
+        padding: 15px;
     }
     
     .genres-grid {
@@ -626,4 +756,63 @@ footer {
     .faq-answer li {
         padding-left: 25px;
     }
+
+    /* Ajustes para programas en móvil */
+    .program-card {
+        min-width: 280px;
+    }
+
+    /* Ajustes para testimonios en móvil */
+    .testimonials-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Para pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    header {
+        padding: 8px 15px;
+    }
+
+    .logo-img {
+        height: 50px;
+        width:  50px;
+    }
+
+    .logo-text-mobile {
+        font-size: 0.9rem;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .program-card {
+        min-width: 260px;
+    }
+}
+
+/* Overlay para cuando el menú está abierto */
+.mobile-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+.mobile-overlay.active {
+    display: block;
 }
