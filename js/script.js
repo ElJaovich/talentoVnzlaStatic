@@ -241,13 +241,4 @@ document.addEventListener('DOMContentLoaded', function() {
     initFAQ();
     animateFAQOnScroll();
     initMobileMenu(); // <-- Agregar esta línea
-    
-    // También agregar FAQ a la navegación (si no está ya)
-    const navLinks = document.querySelector('.nav-links');
-    if (navLinks && !navLinks.querySelector('a[href="#faq"]')) {
-        const faqLink = document.createElement('a');
-        faqLink.href = '#faq';
-        faqLink.textContent = 'FAQ';
-        navLinks.appendChild(faqLink);
-    }
 });
